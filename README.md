@@ -4,7 +4,7 @@ Traduz arquivos de legendas .srt
 
 ### Observação
 Nota!:
-> Copie o script para dentro do diretório onde se encontram os arquivos ou expecifique o caminho do arquivo via argumento.
+> Expecifique o caminho do arquivo via argumento.
 
 ### Instalação
 Instalar:
