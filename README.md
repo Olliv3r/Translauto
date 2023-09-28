@@ -3,8 +3,8 @@ Traduz arquivos de legendas .srt
 ![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.jpg)
 
 ### Observação
-Mota!:
-    > Copie o script para dentro do diretório onde se encontram os arquivos de legendas .srt e execute o mesmo.
+Nota!:
+> Copie o script para dentro do diretório onde se encontram os arquivos de legendas .srt e execute o mesmo.
 
 ### Instalação
 Instalar:
