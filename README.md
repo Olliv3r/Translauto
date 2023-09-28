@@ -4,7 +4,7 @@ Traduz arquivos de legendas .srt
 
 ### Observação
 Nota!:
-> Copie o script para dentro do diretório ou expecifique o diretório via argumento.
+> Copie o script para dentro do diretório onde se encontram os arquivos ou expecifique o caminho do arquivo via argumento.
 
 ### Instalação
 Instalar:
@@ -26,5 +26,4 @@ Traduzido de:
 Para:
 ![translated](https://github.com/Olliv3r/Translate-Auto/blob/main/media/translated.jpg)
 
-### Consulte todos os idiomas disponíveis no arquivo `idiomas` dentro do diretório deste projeto.
 © Copyright Oll3ver.
