@@ -16,9 +16,10 @@ except ModuleNotFoundError as err:
 import optparse
 from src.language import languages
 
+
+### Traduz o arquivo por partes
+
 def subtitle_parts(source, target, text):
-    match_split = '{1,2}:{1,2}:{1,2},{1,3} --> {1,2}:{1,2}:{1,2},{1,3}'
-    #subtitle_parts_untranslated = []
     subtitle_parts_translated = []
     subtitle_split = text.split("\n\n")
 
@@ -32,9 +33,9 @@ def subtitle_parts(source, target, text):
         
     return subtitle_parts_translated
     
-### Transl:
+### Traduz legenda:
 
-def transl(source, target, text):
+def translate(source, target, text):
     try:
         translated = deep_translator.GoogleTranslator(
             source=source,
@@ -64,20 +65,33 @@ def file_write(file_name, translated):
         f.close()
         exit(f'\033[1;32mMinimal translation completed successfully in ./\033[1;35m{f.name}\033[0m')
 
-### Transl_one:
 
-def transl_one(source, target, file):
+### Traduz apenas um arquivo:
+
+def translate_a_file(source, target, file):
     f = open(file)
     f_text = f.read()
     
     print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
     print(f"\033[1;36mTranslating from \033[1;35m{source} \033[0mto \033[1;35m{target}\033[0m...\033[0m")
     
-    translated = transl(source, target, f_text)
+    translated = translate(source, target, f_text)
     new_name_file = f.name.replace('.srt', f'-{target}.srt')
     file_write(new_name_file, translated)
     
-### Options:
+
+### Verifica se o arquivo estar vaziu:
+
+def check_empty_file(file):
+    file = open(file)
+
+    if file.read() != "":
+        return True
+    else:
+        return False 
+
+
+### Opçôes:
 
 def options():
     parse = optparse.OptionParser()
@@ -88,21 +102,21 @@ def options():
 
     if options.source and\
          options.target and\
-         options.file and options.file.split('.')[-1] == "srt":
-        transl_one(options.source, options.target, options.file)
+         options.file:
 
-    if options.source not in languages.values() or\
-        options.target  not in languages.values():
-        print("Select a:")
-        print(languages.values())
+        if options.source not in languages.values() \
+            or options.target not in languages.values():
+            print(languages.values())
+        else:
 
-    if not options.file:
-        print("Subtitle file is required")
-
-    if options.file.split('.')[-1] != "srt":
-        print(".srt subtitle file is required")
-
+            if options.file.split('.')[-1] == "srt":
+                if (check_empty_file(options.file)):
+                    translate_a_file(options.source, options.target, options.file)
+                else:
+                    print("The subtitle file cannot be empty")
+            else:
+                print(".srt subtitle file is required.")
     else:
-        exit("Tente -h")
+        print("Try using the options -h,--help")
     
 options()

@@ -1,6 +1,6 @@
 # Translate-Auto
 Traduz arquivos de legendas .srt
-![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.jpg)
+![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.gif)
 
 ### Observação
 Nota!:
