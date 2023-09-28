@@ -4,7 +4,7 @@ Traduz arquivos de legendas .srt
 
 ### Observação
 Nota!:
-> Copie o script para dentro do diretório onde se encontram os arquivos de legendas .srt e execute o mesmo.
+> Copie o script para dentro do diretório ou expecifique o diretório via argumento.
 
 ### Instalação
 Instalar:
@@ -17,7 +17,7 @@ git clone https://github.com/Olliv3r/Translate-Auto
 Executar:
 ```
 cd Translate-Auto
-python translateAuto.py
+python translateAuto.py --source=en --target=pt --file subtitle.srt
 ```
 
 ### Resultado
@@ -26,5 +26,5 @@ Traduzido de:
 Para:
 ![translated](https://github.com/Olliv3r/Translate-Auto/blob/main/media/translated.jpg)
 
-
+### Consulte todos os idiomas disponíveis no arquivo `idiomas` dentro do diretório deste projeto.
 © Copyright Oll3ver.
