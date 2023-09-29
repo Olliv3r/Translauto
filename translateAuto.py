@@ -8,6 +8,8 @@
 # Por oliver, 27 de setembro 2023
 #
 
+### Módulos necessários:
+
 try:
     import deep_translator
 except ModuleNotFoundError as err:
@@ -15,15 +17,16 @@ except ModuleNotFoundError as err:
 
 import optparse
 import subprocess
-from os.path import (abspath, dirname)
+from os.path import (abspath, dirname, isdir)
 from src.language import languages
 
-### Versão do programa
-
+# Versão do programa
 version = "0.0.2"
-basedir = abspath(dirname(__file__))
 
-### Traduz o arquivo por partes
+# Constrói o caminho completo de um arquivo
+basedir = abspath(dirname(__name__))
+
+### Traduz o arquivo por partes:
 
 def subtitle_parts(source, target, text):
     subtitle_parts_translated = []
@@ -57,7 +60,7 @@ def translate(source, target, text):
 ### Traduz apenas um arquivo:
 
 def translate_a_file(source, target, file, directory=""):
-    f = open(f"{basedir}/{directory}/{file}")
+    f = open(file)
     f_text = f.read()
     
     print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
@@ -65,14 +68,20 @@ def translate_a_file(source, target, file, directory=""):
     
     translated = translate(source, target, f_text)
     new_name_file = f.name.replace('.srt', f'-{target}.srt')
-    file_write(new_name_file, translated)
+    path = basedir + "/" + new_name_file
+    file_write(path, translated)
 
     
 ### Traduz mais de um arquivo:
 
 def translate_all_files(source, target, directory):
-    output = subprocess.Popen([f"ls {basedir}/{directory}"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    output = subprocess.Popen([f"ls {directory}"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     files = output.stdout.read().split("\n")
+
+    path = basedir + "/" + directory
+
+    if len(files) <= 1:
+        exit(f"\033[1;31mNo subtitle files found in this directory: \033[1;34m{path}\033[0m")
 
     files_subtitle = []
 
@@ -80,33 +89,41 @@ def translate_all_files(source, target, directory):
         extension = file.split(".")[-1]
         
         if extension == "srt":
-            files_subtitle.append(file)
+            file = directory + file
+        
+            if(check_empty_file(file)):
+                files_subtitle.append(file)
+            else:
+                 print(f"The subtitle file cannot be empty {file}")
+
 
     for file in files_subtitle:
         translate_a_file(source, target, file, directory)
 
 ### Escreve um novo arquivo traduzido:
 
-def file_write(file_name, translated):
+def file_write(file, translated):
+
     if type(translated) == list:
-        f = open(file_name, 'w')
+        f = open(file, 'w')
         
         for line in translated:
             f.write(line + "\n\n")
             
         f.close()
         print(f'\033[1;32mLong translation completed successfully in ./\033[1;35m{f.name}\033[0m')
+
     else:
-    
-        f = open(file_name, 'w')
-        f.write(str(translated))
+        f = open(file, 'w')
+        f.write(translated)
         f.close()
-        print(f'\033[1;32mMinimal translation completed successfully in ./\033[1;35m{f.name}\033[0m')
+        print(f'\033[1;32mMinimal translation completed successfully in \033[1;35m{f.name}\033[0m')
     
 
 ### Verifica se o arquivo estar vaziu:
 
 def check_empty_file(file):
+
     file = open(file)
 
     if file.read() != "":
@@ -139,26 +156,34 @@ def options():
             or options.target not in languages.values():
             print(languages.values())
         else:
-
             if options.file.split('.')[-1] == "srt":
-                if (check_empty_file(options.file)):
+                path = basedir + "/" + options.file
+
+                if (check_empty_file(path)):
                     translate_a_file(options.source, options.target, options.file)
+        
                 else:
                     print("The subtitle file cannot be empty")
             else:
                 print(".srt subtitle file is required.")
-
+                
     elif options.source and \
          options.target and \
          options.directory:
-        translate_all_files(options.source, options.target, options.directory)
+         path = basedir + "/" + options.directory
+         
+         if isdir(path):
+            translate_all_files(options.source, options.target, options.directory)
+            
+         else:
+            exit(f"\033[1;31mThis directory does not exist: \033[1;34m{path}\033[0m")
     
     elif options.languages:
-        print("Todos os idiomas:")
+        print("All languages available:")
         print(languages)
 
     elif options.version:
-        print(f"Versão atual: {parse.version}")
+        print(f"Current version: {parse.version}")
         
     else:
         print("Try using the options -h,--help")
