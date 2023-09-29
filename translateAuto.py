@@ -14,8 +14,14 @@ except ModuleNotFoundError as err:
     exit(err)
 
 import optparse
+import subprocess
+from os.path import (abspath, dirname)
 from src.language import languages
 
+### Versão do programa
+
+version = "0.0.2"
+basedir = abspath(dirname(__file__))
 
 ### Traduz o arquivo por partes
 
@@ -47,7 +53,39 @@ def translate(source, target, text):
         print("\033[1;33mSubtitle too large detected. Translating in parts, this process takes a while. Please wait...\033[0m")
         return subtitle_parts(source, target, text)
 
-### Escreve tradução mínima e longa:
+    
+### Traduz apenas um arquivo:
+
+def translate_a_file(source, target, file, directory=""):
+    f = open(f"{basedir}/{directory}/{file}")
+    f_text = f.read()
+    
+    print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
+    print(f"\033[1;36mTranslating from \033[1;35m{source} \033[0mto \033[1;35m{target}\033[0m...\033[0m")
+    
+    translated = translate(source, target, f_text)
+    new_name_file = f.name.replace('.srt', f'-{target}.srt')
+    file_write(new_name_file, translated)
+
+    
+### Traduz mais de um arquivo:
+
+def translate_all_files(source, target, directory):
+    output = subprocess.Popen([f"ls {basedir}/{directory}"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    files = output.stdout.read().split("\n")
+
+    files_subtitle = []
+
+    for file in files:
+        extension = file.split(".")[-1]
+        
+        if extension == "srt":
+            files_subtitle.append(file)
+
+    for file in files_subtitle:
+        translate_a_file(source, target, file, directory)
+
+### Escreve um novo arquivo traduzido:
 
 def file_write(file_name, translated):
     if type(translated) == list:
@@ -57,27 +95,13 @@ def file_write(file_name, translated):
             f.write(line + "\n\n")
             
         f.close()
-        exit(f'\033[1;32mLong translation completed successfully in ./\033[1;35m{f.name}\033[0m')
+        print(f'\033[1;32mLong translation completed successfully in ./\033[1;35m{f.name}\033[0m')
     else:
     
         f = open(file_name, 'w')
         f.write(str(translated))
         f.close()
-        exit(f'\033[1;32mMinimal translation completed successfully in ./\033[1;35m{f.name}\033[0m')
-
-
-### Traduz apenas um arquivo:
-
-def translate_a_file(source, target, file):
-    f = open(file)
-    f_text = f.read()
-    
-    print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
-    print(f"\033[1;36mTranslating from \033[1;35m{source} \033[0mto \033[1;35m{target}\033[0m...\033[0m")
-    
-    translated = translate(source, target, f_text)
-    new_name_file = f.name.replace('.srt', f'-{target}.srt')
-    file_write(new_name_file, translated)
+        print(f'\033[1;32mMinimal translation completed successfully in ./\033[1;35m{f.name}\033[0m')
     
 
 ### Verifica se o arquivo estar vaziu:
@@ -88,16 +112,23 @@ def check_empty_file(file):
     if file.read() != "":
         return True
     else:
-        return False 
-
+        return False
 
 ### Opçôes:
 
 def options():
     parse = optparse.OptionParser()
+    parse.description = "Traduz arquivos de legenda para qualquer idioma disponível"
+    parse.set_usage('./translateAuto.py --source=<language> --target=<language> --file=<file>')
+    parse.add_option("-v", "--version", action="store_true", help="Versão do Program")
     parse.add_option("-s", "--source", dest="source", help="Idioma de origem")
     parse.add_option("-t", "--target", dest="target", help="Idioma alvo")
     parse.add_option("-f", "--file", dest="file", help="Arquivo de legenda .srt")
+    parse.add_option("-a", "--all", dest="directory", help="Traduz vários arquivos de legenda .srt de um diretório expecífico")
+    parse.add_option("-l", "--languages", action="store_true", help="Lista todos os idiomas")
+
+    parse.version = version
+    
     options, args = parse.parse_args()
 
     if options.source and\
@@ -116,6 +147,19 @@ def options():
                     print("The subtitle file cannot be empty")
             else:
                 print(".srt subtitle file is required.")
+
+    elif options.source and \
+         options.target and \
+         options.directory:
+        translate_all_files(options.source, options.target, options.directory)
+    
+    elif options.languages:
+        print("Todos os idiomas:")
+        print(languages)
+
+    elif options.version:
+        print(f"Versão atual: {parse.version}")
+        
     else:
         print("Try using the options -h,--help")
     

@@ -3,8 +3,8 @@ Traduz arquivos de legendas .srt
 ![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.gif)
 
 ### Observação
-Nota!:
-> Expecifique o caminho do arquivo via argumento.
+Obs:
+> Traduza um ou múltiplos arquivos de legendas
 
 ### Instalação
 Instalar:
