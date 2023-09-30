@@ -13,11 +13,11 @@ cd Translate-Auto && pip install -r requirements.txt
 Exemplos:
 Traduz a legenda de um arquivo específico:
 ```
-./translateAuto.py -s en -t pt -f subtitle/subtitle.srt
+./translateAuto.py --source=en --target=pt --file subtitle/subtitle.srt
 ```
 Traduz a legenda de múltiplos arquivos do diretório padrão `subtitle`:
 ```
-./translateAuto -s en -t pt -a directory_subtitle
+./translateAuto --source=en -target=pt --all
 ```
 
 > [!NOTE]
