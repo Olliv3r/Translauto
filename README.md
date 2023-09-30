@@ -7,7 +7,7 @@ Instalar:
 ```
 apt update && apt install git python python-pip -y
 git clone https://github.com/Olliv3r/Translate-Auto
-cd Translate-Auto && pip install requirements.txt
+cd Translate-Auto && pip install -r requirements.txt
 ```
 
 ### Modo de Uso:
