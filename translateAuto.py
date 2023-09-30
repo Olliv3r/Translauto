@@ -21,7 +21,17 @@ from os.path import (isdir)
 from src.language import languages
 
 # Versão do programa
-version = "0.0.2"
+version = "0.0.3"
+
+
+### Traduz do idioma de origem 'source' para o 'target'
+
+def translate_text(source, target, text):
+    translate = deep_translator.GoogleTranslator()
+    translate.source = source
+    translate.target = target
+    translated = translate.translate(text)
+    return translated
 
 ### Traduz o arquivo por partes:
 
@@ -30,11 +40,7 @@ def subtitle_parts(source, target, text):
     subtitle_split = text.split("\n\n")
 
     for separate_paragraph in subtitle_split:
-        translated = deep_translator.GoogleTranslator(
-            source=source,
-            target=target
-        ).translate(separate_paragraph)
-
+        translated = translate_text(source, target, text)
         subtitle_parts_translated.append(translated)
         
     return subtitle_parts_translated
@@ -43,10 +49,7 @@ def subtitle_parts(source, target, text):
 
 def translate(source, target, text):
     try:
-        translated = deep_translator.GoogleTranslator(
-            source=source,
-            target=target
-        ).translate(text)
+        translated = translate_text(source, target, text)
         return translated
     
     except deep_translator.exceptions.NotValidLength as err:
