@@ -2,10 +2,6 @@
 Traduz arquivos de legenda .srt
 ![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.gif)
 
-### Observação
-Obs:
-> Traduza um ou múltiplos arquivos de legendas
-
 ### Instalação
 Instalar:
 ```
@@ -29,24 +25,24 @@ cd Translate-Auto && pip install requirements.txt
 ### Exemplos:
 Traduz a legenda de um arquivo específico:
 ```
-./translateAuto.py -s en -t pt -f subtitle
+./translateAuto.py -s en -t pt -f subtitle/subtitle.srt
 ```
-Traduz a legenda de múltiplos arquivos de um diretório expecífico:
+Traduz a legenda de múltiplos arquivos do diretório padrão `subtitle`:
 ```
 ./translateAuto -s en -t pt -a directory_subtitle
 ```
 
-### Resultado
-Traduzido de:
-![not-translated](https://github.com/Olliv3r/Translate-Auto/blob/main/media/not-translated.jpg)
-Para:
-![translated](https://github.com/Olliv3r/Translate-Auto/blob/main/media/translated.jpg)
+### Obs:
+Caso queira traduzir vários arquivos de legenda `.srt` você precisa copiá-los para dentro do diretório `subtitle` o qual o programa usa para traduzir mais de um arquivo de legenda `.srt`. Se for apenas um arquivo não há necessidade de fazer esta etapa.
 
-
-### Nota!:
-Nos exemplos acima foi feito a tradução apenas do idioma `english` para o `portuguese`, é possível traduzir o arquivo para uma variedade de idiomas que pode ser consultado usando a opção `--languages`:
+### Nota:
+Nos exemplos acima a tradução foi realizada somente do idioma `english` para o `portuguese`, é possível traduzir o arquivo para qualquer idioma disponível. Todos os idiomas podem ser acessados usando a opção `--languages`:
 ```
 ./translateAuto.py --languages
 ```
+
+### Recurso:
+[-] Tradução de arquivos de legendas
+[ ] Outros
 
 © Copyright [Olliver](https://github.com/Olliv3r/).

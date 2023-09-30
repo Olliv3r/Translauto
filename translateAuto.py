@@ -3,7 +3,7 @@
 # Tradutor simples de legendas de arquivos '.srt'
 #
 # Modo de Uso:
-# $ python3 translateAuto.py -h
+# $ ./translateAuto.py -h
 #
 # Por oliver, 27 de setembro 2023
 #
@@ -17,6 +17,7 @@ except ModuleNotFoundError as err:
 
 import optparse
 import subprocess
+from os.path import (isdir)
 from src.language import languages
 
 # Versão do programa
@@ -56,7 +57,10 @@ def translate(source, target, text):
 ### Traduz apenas um arquivo:
 
 def translate_a_file(source, target, file, directory=""):
-    f = open(file)
+    if directory != "":
+        file = f"subtitle/{file}"
+        
+    f = open(f"{file}")
     f_text = f.read()
     
     print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
@@ -67,38 +71,30 @@ def translate_a_file(source, target, file, directory=""):
     file_write(new_name_file, translated)
 
     
-### Traduz mais de um arquivo:
+### Traduz todos os arquivos .srt disponíveis dentro do diretório subtitle/:
 
 def translate_all_files(source, target, directory):
     output = subprocess.Popen([f"ls {directory}"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     files = output.stdout.read().split("\n")
 
-    #path = basedir + "/" + directory
-
-    if len(files) <= 1:
-        exit(f"\033[1;31mNo subtitle files found in this directory: \033[1;34m{directory}\033[0m")
-
     files_subtitle = []
-
+    
     for file in files:
         extension = file.split(".")[-1]
         
         if extension == "srt":
-            file = directory + file
-        
-            if(check_empty_file(file)):
+            if(check_empty_file(f"{directory}/{file}")):
                 files_subtitle.append(file)
             else:
-                 print(f"\033[1;31mThe subtitle file cannot be empty \033[35m{file}\033[0m")
-
-
+                 print(f"\033[1;31mThe subtitle file cannot be empty \033[35m{directory}/{file}\033[0m")
+                 
     for file in files_subtitle:
-        translate_a_file(source, target, file, directory)
+        translate_a_file(source, target, file, directory="subtitle")
 
 ### Escreve um novo arquivo traduzido:
 
 def file_write(file, translated):
-
+    
     if type(translated) == list:
         f = open(file, 'w')
         
@@ -118,6 +114,7 @@ def file_write(file, translated):
 ### Verifica se o arquivo estar vaziu:
 
 def check_empty_file(file):
+    
     file = open(file)
 
     if file.read() != "":
@@ -135,7 +132,7 @@ def options():
     parse.add_option("-s", "--source", dest="source", help="Idioma de origem")
     parse.add_option("-t", "--target", dest="target", help="Idioma alvo")
     parse.add_option("-f", "--file", dest="file", help="Arquivo de legenda .srt")
-    parse.add_option("-a", "--all", dest="directory", help="Traduz vários arquivos de legenda .srt de um diretório expecífico")
+    parse.add_option("-a", "--all", action="store_true", help="Traduz todos os arquivos de legenda .srt disponíveis dentro do diretório padrão subtitle")
     parse.add_option("-l", "--languages", action="store_true", help="Lista todos os idiomas")
 
     parse.version = version
@@ -162,10 +159,10 @@ def options():
                 
     elif options.source and \
          options.target and \
-         options.directory:
+         options.all:
          
-         if isdir(options.directory):
-            translate_all_files(options.source, options.target, options.directory)
+         if isdir("subtitle"):
+            translate_all_files(options.source, options.target, directory="subtitle")
             
          else:
             exit(f"\033[1;31mThis directory does not exist: \033[1;34m{options.directory}\033[0m")
