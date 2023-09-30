@@ -17,14 +17,10 @@ except ModuleNotFoundError as err:
 
 import optparse
 import subprocess
-from os.path import (abspath, dirname, isdir)
 from src.language import languages
 
 # Versão do programa
 version = "0.0.2"
-
-# Constrói o caminho completo de um arquivo
-basedir = abspath(dirname(__name__))
 
 ### Traduz o arquivo por partes:
 
@@ -68,8 +64,7 @@ def translate_a_file(source, target, file, directory=""):
     
     translated = translate(source, target, f_text)
     new_name_file = f.name.replace('.srt', f'-{target}.srt')
-    path = basedir + "/" + new_name_file
-    file_write(path, translated)
+    file_write(new_name_file, translated)
 
     
 ### Traduz mais de um arquivo:
@@ -78,10 +73,10 @@ def translate_all_files(source, target, directory):
     output = subprocess.Popen([f"ls {directory}"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     files = output.stdout.read().split("\n")
 
-    path = basedir + "/" + directory
+    #path = basedir + "/" + directory
 
     if len(files) <= 1:
-        exit(f"\033[1;31mNo subtitle files found in this directory: \033[1;34m{path}\033[0m")
+        exit(f"\033[1;31mNo subtitle files found in this directory: \033[1;34m{directory}\033[0m")
 
     files_subtitle = []
 
@@ -94,7 +89,7 @@ def translate_all_files(source, target, directory):
             if(check_empty_file(file)):
                 files_subtitle.append(file)
             else:
-                 print(f"The subtitle file cannot be empty {file}")
+                 print(f"\033[1;31mThe subtitle file cannot be empty \033[35m{file}\033[0m")
 
 
     for file in files_subtitle:
@@ -111,7 +106,7 @@ def file_write(file, translated):
             f.write(line + "\n\n")
             
         f.close()
-        print(f'\033[1;32mLong translation completed successfully in ./\033[1;35m{f.name}\033[0m')
+        print(f'\033[1;32mLong translation completed successfully in \033[1;35m{f.name}\033[0m')
 
     else:
         f = open(file, 'w')
@@ -123,7 +118,6 @@ def file_write(file, translated):
 ### Verifica se o arquivo estar vaziu:
 
 def check_empty_file(file):
-
     file = open(file)
 
     if file.read() != "":
@@ -157,9 +151,8 @@ def options():
             print(languages.values())
         else:
             if options.file.split('.')[-1] == "srt":
-                path = basedir + "/" + options.file
 
-                if (check_empty_file(path)):
+                if (check_empty_file(options.file)):
                     translate_a_file(options.source, options.target, options.file)
         
                 else:
@@ -170,13 +163,12 @@ def options():
     elif options.source and \
          options.target and \
          options.directory:
-         path = basedir + "/" + options.directory
          
-         if isdir(path):
+         if isdir(options.directory):
             translate_all_files(options.source, options.target, options.directory)
             
          else:
-            exit(f"\033[1;31mThis directory does not exist: \033[1;34m{path}\033[0m")
+            exit(f"\033[1;31mThis directory does not exist: \033[1;34m{options.directory}\033[0m")
     
     elif options.languages:
         print("All languages available:")

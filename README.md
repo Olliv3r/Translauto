@@ -1,5 +1,5 @@
 # Translate-Auto
-Traduz arquivos de legendas .srt
+Traduz arquivos de legenda .srt
 ![main](https://github.com/Olliv3r/Translate-Auto/blob/main/media/main.gif)
 
 ### Observação
@@ -15,16 +15,16 @@ cd Translate-Auto && pip install requirements.txt
 ```
 
 ### Modo de Uso:
-  -v, --version         [Versão do Program]
+  -v, --version         Versão do Program
   -s SOURCE, 
-  --source=SOURCE		[Idioma de origem]
+  --source=SOURCE		    Idioma de origem
   -t TARGET, 
-  --target=TARGET		[Idioma alvo]
-  -f FILE, --file=FILE  [Arquivo de legenda .srt]
+  --target=TARGET		    Idioma alvo
+  -f FILE, --file=FILE  Arquivo de legenda .srt
   -a DIRECTORY, 
   --all=DIRECTORY
-                        [Traduz vários arquivos de legenda .srt de um diretório expecífico]
-  -l, --languages       [Lista todos os idiomas]
+                        Traduz vários arquivos de legenda .srt de um diretório expecífico
+  -l, --languages       Lista todos os idiomas
 
 ### Exemplos:
 Traduz a legenda de um arquivo específico:
