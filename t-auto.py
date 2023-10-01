@@ -65,7 +65,7 @@ def translate_a_file(source, target, file, directory=""):
     f = open(f"{file}")
     f_text = f.read()
     
-    print(f"{w}[{b}*{w}] Translating the subtitle in parts, this process takes a little time. Please wait{w}...\n")
+    print(f"{w}[{b}*{w}] Translating the subtitle, this process takes a little time. Please wait{w}...\n")
     print(f"{w}[{b}*{w}] Translating from {m}{source} {w}to {m}{target}{w}...\n")
     
     translated = translate_text(source, target, f_text)
