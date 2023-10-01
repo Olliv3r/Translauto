@@ -1,0 +1,11 @@
+1
+00:00:01,730 --> 00:00:09,050
+This is Chapter Four of the flask make a tutorial in this chapter we are going to create the microblog
+
+2
+00:00:09,050 --> 00:00:10,130
+database.
+
+3
+00:00:10,130 --> 00:00:14,990
+And in particular we are going to learn how to store users and block posts.

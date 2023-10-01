@@ -19,9 +19,13 @@ import optparse
 import subprocess
 from os.path import (isdir)
 from src.language import languages
+from src.menu import banner
 
 # Versão do programa
-version = "0.0.3"
+version = "0.0.4"
+
+# Cores padrão
+w, r, g, y, b, d_g, c, m = "\033[0m", "\033[1;31m", "\033[1;32m", "\033[1;33m", "\033[1;34m", "\033[2;32m", "\033[1;35m", "\033[1;36m"
 
 
 ### Traduz do idioma de origem 'source' para o 'target'
@@ -30,32 +34,27 @@ def translate_text(source, target, text):
     translate = deep_translator.GoogleTranslator()
     translate.source = source
     translate.target = target
-    translated = translate.translate(text)
-    return translated
-
-### Traduz o arquivo por partes:
-
-def subtitle_parts(source, target, text):
-    subtitle_parts_translated = []
-    subtitle_split = text.split("\n\n")
-
-    for separate_paragraph in subtitle_split:
-        translated = translate_text(source, target, text)
-        subtitle_parts_translated.append(translated)
-        
-    return subtitle_parts_translated
     
-### Traduz legenda:
-
-def translate(source, target, text):
     try:
-        translated = translate_text(source, target, text)
+        translated = translate.translate(text)
         return translated
-    
+        
     except deep_translator.exceptions.NotValidLength as err:
-        print("\033[1;33mSubtitle too large detected. Translating in parts, this process takes a while. Please wait...\033[0m")
         return subtitle_parts(source, target, text)
 
+### Traduz o arquivo por partes caso a legenda ultrapasse 500 caracteres:
+
+def subtitle_parts(source, target, text):
+    print(f"{w}[{y}!{w}] Subtitle too large detected. Translating in parts, this process takes a while. Please wait...{w}\n")
+    
+    subtitle_parts_translated = []
+    subtitle_split = text.split("\n\n")
+    
+    for separate_paragraph in subtitle_split:
+        translated = translate_text(source, target, separate_paragraph)
+        subtitle_parts_translated.append(translated)
+
+    return subtitle_parts_translated
     
 ### Traduz apenas um arquivo:
 
@@ -66,10 +65,10 @@ def translate_a_file(source, target, file, directory=""):
     f = open(f"{file}")
     f_text = f.read()
     
-    print("\033[1;33mTranslating the subtitle in parts, this process takes a little time. Please wait.\033[0m")
-    print(f"\033[1;36mTranslating from \033[1;35m{source} \033[0mto \033[1;35m{target}\033[0m...\033[0m")
+    print(f"{w}[{b}*{w}] Translating the subtitle in parts, this process takes a little time. Please wait{w}...\n")
+    print(f"{w}[{b}*{w}] Translating from {m}{source} {w}to {m}{target}{w}...\n")
     
-    translated = translate(source, target, f_text)
+    translated = translate_text(source, target, f_text)
     new_name_file = f.name.replace('.srt', f'-{target}.srt')
     file_write(new_name_file, translated)
 
@@ -89,10 +88,12 @@ def translate_all_files(source, target, directory):
             if(check_empty_file(f"{directory}/{file}")):
                 files_subtitle.append(file)
             else:
-                 print(f"\033[1;31mThe subtitle file cannot be empty \033[35m{directory}/{file}\033[0m")
+                 print(f"{w}[{y}!{w}] The subtitle file cannot be empty {m}{directory}/{file}{w}\n")
                  
     for file in files_subtitle:
         translate_a_file(source, target, file, directory="subtitle")
+
+    #exit(f"\n{w}[{d_g}√{w}] Process completed successfully...{d_g}OK{w}")
 
 ### Escreve um novo arquivo traduzido:
 
@@ -105,15 +106,14 @@ def file_write(file, translated):
             f.write(line + "\n\n")
             
         f.close()
-        print(f'\033[1;32mLong translation completed successfully in \033[1;35m{f.name}\033[0m')
+        print(f'{w}[{g}√{w}] {g}Long translation completed successfully in {y}{f.name}{w}\n')
 
     else:
         f = open(file, 'w')
         f.write(translated)
         f.close()
-        print(f'\033[1;32mMinimal translation completed successfully in \033[1;35m{f.name}\033[0m')
+        print(f'{w}[{g}√{w}] {g}Minimal translation completed successfully in {y}{f.name}{w}\n')
     
-
 ### Verifica se o arquivo estar vaziu:
 
 def check_empty_file(file):
@@ -130,7 +130,7 @@ def check_empty_file(file):
 def options():
     parse = optparse.OptionParser()
     parse.description = "Traduz arquivos de legenda para qualquer idioma disponível"
-    parse.set_usage('./translateAuto.py --source=<language> --target=<language> --file=<file>')
+    parse.set_usage('./t-auto.py --source=<language> --target=<language> --file=<file>')
     parse.add_option("-v", "--version", action="store_true", help="Versão do Program")
     parse.add_option("-s", "--source", dest="source", help="Idioma de origem")
     parse.add_option("-t", "--target", dest="target", help="Idioma alvo")
@@ -153,31 +153,33 @@ def options():
             if options.file.split('.')[-1] == "srt":
 
                 if (check_empty_file(options.file)):
+                    banner()
                     translate_a_file(options.source, options.target, options.file)
         
                 else:
-                    print("The subtitle file cannot be empty")
+                    print(f"{w}[{y}!{w}] The subtitle file cannot be empty")
             else:
-                print(".srt subtitle file is required.")
+                print(f"{w}[{y}!{w}] .srt subtitle file is required.")
                 
     elif options.source and \
          options.target and \
          options.all:
          
          if isdir("subtitle"):
+            banner()
             translate_all_files(options.source, options.target, directory="subtitle")
             
          else:
-            exit(f"\033[1;31mThis directory does not exist: \033[1;34m{options.directory}\033[0m")
+            exit(f"{w}[{y}!{w}] This directory does not exist: {y}subtitle{w}")
     
     elif options.languages:
-        print("All languages available:")
+        print(f"{w}[{b}+{w}] All languages available:{w}")
         print(languages)
 
     elif options.version:
-        print(f"Current version: {parse.version}")
+        print(f"{w}[+] Current version: {d_g}{parse.version}{w}")
         
     else:
-        print("Try using the options -h,--help")
-    
+        print(f"{w}[{y}!{w}] Try using the options {d_g}-h{w},{d_g}--help{w}")
+
 options()
