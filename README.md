@@ -1,13 +1,13 @@
 # Translator Auto
 Traduz arquivos de legenda .srt
-![main](https://github.com/Olliv3r/T-Auto/blob/main/media/main.gif)
+![main](https://github.com/Olliv3r/Translator-Auto/blob/main/media/main.gif)
 
 > [!IMPORTANT]
 > Instalação dos requisitos
 ```
 apt update && apt install git python python-pip -y
-git clone https://github.com/Olliv3r/T-Auto
-cd T-Auto && pip install -r requirements.txt
+git clone https://github.com/Olliv3r/Translator-Auto
+cd Translator-Auto && pip install -r requirements.txt
 ```
 
 Exemplos:
