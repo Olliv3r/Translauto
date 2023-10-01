@@ -28,7 +28,7 @@ Nos exemplos acima a tradução foi realizada somente do idioma `english` para o
 ./t-auto.py --languages
 ```
 
-### Recurso:
+### Recursos:
 
 - [x] Tradução de arquivos de legendas
 - [ ] Outros

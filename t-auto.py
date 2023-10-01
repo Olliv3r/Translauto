@@ -182,4 +182,4 @@ def options():
     else:
         print(f"{w}[{y}!{w}] Try using the options {d_g}-h{w},{d_g}--help{w}")
 
-options
+options() 
