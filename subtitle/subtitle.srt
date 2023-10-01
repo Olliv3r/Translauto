@@ -1,0 +1,63 @@
+1
+00:00:01,510 --> 00:00:05,860
+This is Chapter 1 of the flask make a tutorial welcome.
+
+2
+00:00:05,860 --> 00:00:11,270
+Before we begin I want to spend a couple of minutes showing you how you can work.
+
+3
+00:00:11,290 --> 00:00:13,630
+But the code repository and get hub.
+
+4
+00:00:13,930 --> 00:00:16,750
+Why'd you do this tutorial.
+
+5
+00:00:16,750 --> 00:00:23,490
+The address is get hub dot com slash Miguel Greenburgh slash microblog.
+
+6
+00:00:24,100 --> 00:00:31,010
+And this repository is carefully structured with one commit per chapter.
+
+7
+00:00:31,600 --> 00:00:40,570
+So if you are doing chapter one as is the case now you can click on the commit and see exactly what
+
+8
+00:00:40,570 --> 00:00:42,990
+changes went in to that chapter
+
+9
+00:00:46,410 --> 00:00:54,420
+and other useful option is to click on the browse button on the right for the commit and this will give
+
+10
+00:00:54,420 --> 00:01:00,360
+you a browse several repository at that chapter.
+
+11
+00:01:00,540 --> 00:01:08,740
+From here you can also download a zip file if you want to have the files locally on your machine.
+
+12
+00:01:10,100 --> 00:01:17,360
+The first few chapters are simple enough that I'm going to type them directly and I recommend that you
+
+13
+00:01:17,360 --> 00:01:25,040
+do too so that you familiarized with the project later on when the code changes become longer and a
+
+14
+00:01:25,040 --> 00:01:26,800
+little bit more complicated.
+
+15
+00:01:26,810 --> 00:01:34,700
+You may want to come to this repository to copy and paste certain sections that will be very tedious
+
+16
+00:01:34,700 --> 00:01:35,240
+to write.
