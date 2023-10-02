@@ -21,7 +21,13 @@ Traduz a legenda de múltiplos arquivos do diretório padrão `subtitle`:
 ```
 
 > [!NOTE]
-> Caso queira traduzir vários arquivos de legenda `.srt` você precisa copiá-los para dentro do diretório `subtitle` o qual o programa usa para traduzir mais de um arquivo de legenda `.srt`. Se for apenas um arquivo não há necessidade de fazer esta etapa.
+> Se queira traduzir vários arquivos de legenda `.srt` você precisa copiá-los para dentro do diretório `subtitle` o qual o programa usa para traduzir mais de um arquivo de legenda `.srt`. Se for apenas um arquivo não há necessidade de fazer esta etapa.
+
+> [!WARNING]
+> Caso deseja traduzir um idioma que você desconhece, basta expecificar a opção `source` o valor `auto`, sendo assim o programa vai detectar o idioma de origem e traduzí-lo imediatamente:
+```
+./t-auto.py --source=auto --target=pt --file <FILE>
+```
 
 Nos exemplos acima a tradução foi realizada somente do idioma `english` para o `portuguese`, é possível traduzir o arquivo para qualquer idioma disponível. Todos os idiomas podem ser acessados usando a opção `--languages`:
 ```
