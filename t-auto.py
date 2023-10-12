@@ -11,7 +11,7 @@
 ### Módulos necessários:
 
 try:
-    import deep_translator
+    import deep_translator, requests
 except ModuleNotFoundError as err:
     exit(err)
 
@@ -22,7 +22,7 @@ from src.language import languages
 from src.menu import banner
 
 # Versão do programa
-version = "0.0.5"
+version = "0.0.6"
 
 # Cores padrão
 w, r, g, y, b, d_g, c, m = "\033[0m", "\033[1;31m", "\033[1;32m", "\033[1;33m", "\033[1;34m", "\033[2;32m", "\033[1;35m", "\033[1;36m"
@@ -30,12 +30,22 @@ w, r, g, y, b, d_g, c, m = "\033[0m", "\033[1;31m", "\033[1;32m", "\033[1;33m", 
 # Referencia a classe
 translate = deep_translator.GoogleTranslator()
 
+# Checa acesso a internet
+def check_internet():
+    print(f"\r{w}[{b}*{w}] {g}Checking internet access...{w}")
+    try:
+        requests.request('get', 'https://www.google.com', timeout=5)
+        print(f"\r{w}[{b}+{w}] {g}The internet is connected!{w}")
+    except requests.exceptions.ConnectionError:
+        print(f"\r{w}[{r}!{w}] {y}The internet is not connected!{w}")
+        exit()
+
 ### Traduz do idioma de origem 'source' para o 'target'
 
 def translate_text(source, target, text):
     translate.source = source
     translate.target = target
-    
+
     try:
         translated = translate.translate(text)
         return translated
@@ -153,6 +163,7 @@ def options():
 
                 if (check_empty_file(options.file)):
                     banner()
+                    check_internet()
                     translate_a_file(options.source, options.target, options.file)
                     print(f"{w}[{d_g}√{w}] Process completed successfully...{d_g}OK{w}")
         
@@ -170,6 +181,7 @@ def options():
         else:
             if isdir("subtitle"):
                 banner()
+                check_internet()
                 translate_all_files(options.source, options.target, directory="subtitle")
                 print(f"{w}[{d_g}√{w}] Process completed successfully...{d_g}OK{w}")
             
