@@ -1,7 +1,7 @@
 1
-00:00:00,360 --> 00:00:07,170
-This is chapter seven of the flask a tutorial in this chapter we are going to look at the options that
+00:00:00.360 --> 00:00:07.170
+This is chapter seven of the balloon tutorial, in this chapter we will see the options that
 
-2
+two
 00:00:07,170 --> 00:00:09,520
-flask offers for error handling.
+error handling vial offers.
