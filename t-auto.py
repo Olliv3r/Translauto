@@ -18,7 +18,8 @@ except ModuleNotFoundError as err:
 
 import optparse
 import subprocess
-from os.path import (isdir)
+from os.path import isdir
+from os import environ
 from src.language import languages
 from src.menu import banner
 
@@ -67,7 +68,7 @@ def subtitle_parts(source, target, text):
     
     
 ### Traduz todos os arquivos .srt disponíveis dentro do diretório subtitle/:
-def translate_all_files(source="", target="", directory="subtitle", replace_file=False):
+def translate_all_files(source = "", target = "", directory = environ.get('T_AUTO_DIR') or "subtitle", replace_file = False):
 
     if not isdir(directory):
         exit(f"{w}[{y}!{w}] The default directory was not found{w}")
