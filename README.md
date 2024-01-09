@@ -1,4 +1,4 @@
-# Translator Auto
+# Translauto
 Tradutor de arquivos de legenda SRT
 ![main](https://github.com/Olliv3r/Translauto/blob/main/media/translauto.gif)
 
