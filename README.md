@@ -1,6 +1,6 @@
 # Translauto
 Tradutor de arquivos de legenda SRT
-![main](https://github.com/Olliv3r/Translauto/blob/main/media/main.gif)
+![main](https://github.com/Olliv3r/Translauto/blob/main/media/translauto.gif)
 
 > [!IMPORTANT]
 > Instalação dos requisitos
