@@ -27,7 +27,7 @@ Obs!: *Antes de utilizar a opção `-r` ou `--replace-file` faça backup dos arq
 
 > [!NOTE]
 > Se queira traduzir vários arquivos de legenda `.srt` você precisa copiá-los para dentro do diretório `subtitle` o qual o programa usa para traduzir mais de um arquivo de legenda `.srt`. Se for apenas um arquivo não há necessidade de fazer esta etapa.
-> Caso queira expecificar um diretório padrão personalizado, basta definir a variável de ambiente `T_AUTO_DIR` com o camimho completo do novo diretório, por exemplo:
+> Caso queira expecificar um diretório padrão personalizado, basta definir a variável de ambiente `T_AUTO_DIR` com o caminho completo do novo diretório, por exemplo:
 
 ```
 export T_AUTO_DIR=/sdcard/subtitles
