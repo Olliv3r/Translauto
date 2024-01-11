@@ -140,6 +140,7 @@ if __name__ == '__main__':
         directory = environ.get('T_AUTO_DIR') or 'subtitle'
         if options.replace_file:
           banner()
+          print(f'{w}[{b}*{w}] Traduzindo todos os arquivos de {m}{directory}{w}\n')
           translate_files(options.source, options.target, directory, replace_file = True)
         else:
           banner()

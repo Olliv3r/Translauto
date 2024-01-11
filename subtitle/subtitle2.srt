@@ -1,7 +1,7 @@
 1
-00:00:00.360 --> 00:00:07.170
-This is chapter seven of the balloon tutorial. In this chapter we will see the options that
+00:00:00,360 --> 00:00:07,170
+Este é o capítulo sete do tutorial do balão. Neste capítulo veremos as opções que
 
 1
 00:00:07,170 --> 00:00:09,520
-Error processing bottle offers.
+Erro ao processar ofertas de garrafas.
