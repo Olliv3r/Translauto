@@ -113,7 +113,7 @@ def write_to_file(file, text, target, replace_file):
 if __name__ == '__main__':
   parse = OptionParser()
   parse.description = "Traduz arquivos de legenda para qualquer idioma disponível"
-  parse.set_usage('./translauto.py -src LANG_SRC -dst LANG_DST -txt TEXT')
+  parse.set_usage('./translauto.py -s LANG_SRC -t LANG_DST -f FILE | -a')
   parse.add_option('-v', '--version', help = 'Versão atual do programa', action = 'store_true')
   parse.add_option('-s', '--source', dest = 'source', help = 'Idioma de origem')
   parse.add_option('-t', '--target', dest = 'target', help = 'Idioma de destino')
