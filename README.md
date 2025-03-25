@@ -1,52 +1,92 @@
-# Translauto
-Tradutor de arquivos de legenda SRT
+Translauto
+
+**Translauto** é um tradutor de arquivos de legenda `.srt` simples e eficiente, que permite traduzir automaticamente suas legendas para diferentes idiomas.
+
 ![main](https://github.com/Olliv3r/Translauto/blob/main/media/translauto.gif)
 
-> [!IMPORTANT]
-> Instalação dos requisitos
+### Instalação
+
+#### 1. Atualize os pacotes e instale as dependências necessárias:
+
 ```
 apt update && apt install git python python-pip -y
+```
+
+#### 2. Clone o repositório e instale os pacotes requeridos:
+
+```
 git clone https://github.com/Olliv3r/Translauto
+```
+```
 cd Translauto && pip install -r requirements.txt
 ```
 
-Exemplos:
-Traduz um arquivo de legenda específico:
+### Exemplos de Uso
+
+Traduzir um arquivo de legenda específico:
+Para traduzir um arquivo .srt de um idioma de origem para o idioma de destino, use:
+
 ```
 ./translauto.py -s auto -t pt -f subtitle/subtitle.srt
 ```
-Traduz múltiplos arquivos de legenda do diretório padrão `subtitle` ou outro que pode ser expecificado através da variável de ambiente `T_AUTO_DIR`:
+
+Onde:
+
+-s auto detecta automaticamente o idioma de origem.
+
+-t pt especifica o idioma de destino (Português).
+
+-f subtitle/subtitle.srt é o caminho para o arquivo de legenda a ser traduzido.
+
+Traduzir múltiplos arquivos de legenda:
+Para traduzir todos os arquivos .srt dentro do diretório padrão subtitle (ou de outro diretório especificado pela variável de ambiente `T_AUTO_DIR`), use:
+
 ```
 ./translauto.py -s en -t pt -a
 ```
-Substituí o arquivo de origem pelo o novo que será traduzido:
+
+Onde:
+
+-s en define o idioma de origem como Inglês.
+
+-t pt define o idioma de destino como Português.
+
+-a significa traduzir todos os arquivos .srt no diretório.
+
+#### Substituir o arquivo de origem pelo traduzido:
+
+Se você deseja substituir o arquivo de legenda original pela versão traduzida, use a opção -r (ou --replace-file). Atenção: Faça backup dos arquivos antes de usar esta opção, pois o arquivo original será substituído.
+
 ```
 ./translauto.py -s auto -t pt -a -r
 ```
-Obs!: *Antes de utilizar a opção `-r` ou `--replace-file` faça backup dos arquivos de legenda de origem, pois ao habilitar a substituição do arquivo de origem pelo traduzido através da opção `-r` ou `--replace-file`, poderá perder o arquivo antigo*.
 
-> [!NOTE]
-> Se queira traduzir vários arquivos de legenda `.srt` você precisa copiá-los para dentro do diretório `subtitle` o qual o programa usa para traduzir mais de um arquivo de legenda `.srt`. Se for apenas um arquivo não há necessidade de fazer esta etapa.
-> Caso queira expecificar um diretório padrão personalizado, basta definir a variável de ambiente `T_AUTO_DIR` com o caminho completo do novo diretório, por exemplo:
+#### Traduzir detectando automaticamente o idioma de origem:
+
+Se você não sabe o idioma de origem, use auto para que o programa detecte automaticamente o idioma e traduza para o idioma de destino:
+
+```
+./translauto.py --source=auto --target=pt --file <FILE>
+```
+
+#### Personalizando o diretório de legendas:
+
+Por padrão, o programa usa o diretório subtitle para armazenar os arquivos de legenda. Se desejar usar um diretório diferente, defina a variável de ambiente `T_AUTO_DIR` com o caminho completo do novo diretório. Exemplo:
 
 ```
 export T_AUTO_DIR=/sdcard/subtitles
 ```
 
-> [!WARNING]
-> Caso deseja traduzir um idioma que você desconhece, basta expecificar a opção `source` o valor `auto`, sendo assim o programa vai detectar o idioma de origem e traduzí-lo imediatamente:
-```
-./translauto.py --source=auto --target=pt --file <FILE>
-```
+#### Exibir idiomas disponíveis:
 
-Nos exemplos acima a tradução foi realizada somente do idioma `english` para o `portuguese`, é possível traduzir o arquivo para qualquer idioma disponível. Todos os idiomas podem ser acessados usando a opção `--languages`:
+Você pode consultar todos os idiomas suportados pela ferramenta com a opção --languages:
+
 ```
 ./translauto.py --languages
 ```
 
-### Recursos:
+#### Recursos
+ [-] Tradução de arquivos de legenda .srt
+ [-] Outros recursos planejados
 
-- [x] Tradução de arquivos de legendas
-- [ ] Outros
-
-© Copyright [Olliver](https://github.com/Olliv3r)
+© Copyright Olliv3r
