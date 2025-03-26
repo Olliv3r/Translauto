@@ -23,7 +23,7 @@ cd Translauto && pip install -r requirements.txt
 
 ### Exemplos de Uso
 
-Traduzir um arquivo de legenda específico:
+#### Traduzir um arquivo de legenda específico:
 Para traduzir um arquivo .srt de um idioma de origem para o idioma de destino, use:
 
 ```
@@ -38,7 +38,7 @@ Onde:
 
 `-f subtitle/subtitle.srt` é o caminho para o arquivo de legenda a ser traduzido.
 
-Traduzir múltiplos arquivos de legenda:
+#### Traduzir múltiplos arquivos de legenda:
 Para traduzir todos os arquivos .srt dentro do diretório padrão subtitle (ou de outro diretório especificado pela variável de ambiente `T_AUTO_DIR`), use:
 
 ```
