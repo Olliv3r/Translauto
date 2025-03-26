@@ -32,11 +32,11 @@ Para traduzir um arquivo .srt de um idioma de origem para o idioma de destino, u
 
 Onde:
 
--s auto detecta automaticamente o idioma de origem.
+`-s auto` detecta automaticamente o idioma de origem.
 
--t pt especifica o idioma de destino (Português).
+`-t pt` especifica o idioma de destino (Português).
 
--f subtitle/subtitle.srt é o caminho para o arquivo de legenda a ser traduzido.
+`-f subtitle/subtitle.srt` é o caminho para o arquivo de legenda a ser traduzido.
 
 Traduzir múltiplos arquivos de legenda:
 Para traduzir todos os arquivos .srt dentro do diretório padrão subtitle (ou de outro diretório especificado pela variável de ambiente `T_AUTO_DIR`), use:
@@ -47,15 +47,15 @@ Para traduzir todos os arquivos .srt dentro do diretório padrão subtitle (ou d
 
 Onde:
 
--s en define o idioma de origem como Inglês.
+`-s en` define o idioma de origem como Inglês.
 
--t pt define o idioma de destino como Português.
+`-t pt` define o idioma de destino como Português.
 
--a significa traduzir todos os arquivos .srt no diretório.
+`-a` significa traduzir todos os arquivos .srt no diretório.
 
 #### Substituir o arquivo de origem pelo traduzido:
 
-Se você deseja substituir o arquivo de legenda original pela versão traduzida, use a opção -r (ou --replace-file). Atenção: Faça backup dos arquivos antes de usar esta opção, pois o arquivo original será substituído.
+Se você deseja substituir o arquivo de legenda original pela versão traduzida, use a opção `-r` (ou `--replace-file`). Atenção: Faça backup dos arquivos antes de usar esta opção, pois o arquivo original será substituído.
 
 ```
 ./translauto.py -s auto -t pt -a -r
@@ -79,14 +79,14 @@ export T_AUTO_DIR=/sdcard/subtitles
 
 #### Exibir idiomas disponíveis:
 
-Você pode consultar todos os idiomas suportados pela ferramenta com a opção --languages:
+Você pode consultar todos os idiomas suportados pela ferramenta com a opção `--languages`:
 
 ```
 ./translauto.py --languages
 ```
 
 #### Recursos
- [-] Tradução de arquivos de legenda .srt
- [-] Outros recursos planejados
+ - [x] Tradução de arquivos de legenda .srt
+ - [ ] Outros recursos planejados
 
 © Copyright Olliv3r

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # Tradutor de legendas SRT
+#
+# By Oliver, 23 de Setembro - 2023
 
 import os
 import sys
@@ -11,7 +13,7 @@ from optparse import OptionParser
 from src.language import languages
 from src.menu import banner
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 
 def translate(text, source='auto', target='pt'):
     """Traduz um texto."""
